@@ -71,10 +71,16 @@ module.exports = NodeHelper.create({
       /* from pirLib */
       pir: (noti, params) => {
         log("[CALLBACK] Pir:", noti, params || "");
-        if (noti === "PIR_DETECTED") {
-          this.screen.wakeup();
+        if (noti === "PIR_MOTION") {
+          this.screen.onMotion();
           this.sendSocketNotification("PIR_DETECTED-ANIMATE");
-        } else {
+        }
+        else if (noti === "PIR_NO_MOTION") {
+          log("[CALLBACK] Screen sleep");
+          this.screen.onNoMotion();
+          log("[CALLBACK] Send screen to sleep");
+        }
+        else {
           this.sendSocketNotification(noti, params);
         }
       },

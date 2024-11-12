@@ -77,9 +77,12 @@ class PIR {
 
     this.pir.on("message", (message) => {
       // detect pir
-      if (message === "Detected") {
-        log("Detected presence");
-        this.callback("PIR_DETECTED");
+      if (message === "motion") {
+        log("Motion detected");
+        this.callback("PIR_MOTION");
+      } else if (message === "no_motion") {
+        log("No motion detected");
+        this.callback("PIR_NO_MOTION");
       } else {
         console.error("[MMM-Pir] [LIB] [PIR] ", message);
         this.callback("PIR_ERROR", message);

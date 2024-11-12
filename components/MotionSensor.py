@@ -1,6 +1,7 @@
 from gpiozero import MotionSensor
 from signal import pause
 import argparse, sys
+import time
 
 parser = argparse.ArgumentParser(
     description='Read MotionSensor state from GPIO for MMM-Pir',
@@ -19,13 +20,18 @@ args = parser.parse_args(None if sys.argv[1:] else ['-h'])
 
 GPIO = "GPIO" + str(args.gpio)
 
-def detected():
-  print('Detected')
+def motion():
+  print('motion')
+
+def no_motion():
+  print('no_motion')
 
 try:
   pir = MotionSensor(GPIO)
-  pir.when_motion = detected
+  pir.when_motion = motion
+  pir.when_no_motion = no_motion
   pause()
+
 except Exception as e:
   print("Error:", e)
 

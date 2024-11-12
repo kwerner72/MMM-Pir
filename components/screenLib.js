@@ -267,6 +267,15 @@ class SCREEN {
     this.start();
   }
 
+  onMotion() {
+    this.wakeup();
+    this.lock();
+  }
+
+  onNoMotion() {
+    this.unlock();
+  }
+  
   forceEnd () {
     if (this.screen.forceLocked) return log("forceEnd: ForceLocked");
     clearInterval(this.interval);
