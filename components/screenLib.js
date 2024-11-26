@@ -428,7 +428,7 @@ class SCREEN {
           });
       case 8:
         /* pinctrl */
-        let cmd = `pinctrl get ${this.config.relayGPIOPin}`;
+        let cmd = `pinctrl lev ${this.config.relayGPIOPin}`;
         exec(cmd, (err, stdout, stderr) => {
           if (err) {
             console.error(`[MMM-Pir] [LIB] [SCREEN] [Display Error] pinctrl get: ${err}`);
@@ -436,8 +436,7 @@ class SCREEN {
           }
           else {
             let responseSh = stdout.trim();
-            const inout = /.*\|\s(hi|lo)\s.*/g.exec(responseSh);
-            if (inout[1] === 'hi') {
+            if (responseSh === '1') {
               actual = true;
             } else {
               actual = false;
